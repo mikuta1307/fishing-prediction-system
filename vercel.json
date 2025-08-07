@@ -1,19 +1,12 @@
 {
   "version": 2,
   "name": "fishing-prediction-system",
-  "builds": [
-    {
-      "src": "api/*.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.12",
+      "maxDuration": 30
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/(.*)",
@@ -24,19 +17,11 @@
       "dest": "/$1"
     }
   ],
-  "functions": {
-    "api/*.py": {
-      "runtime": "python3.9",
-      "maxDuration": 30
+  "build": {
+    "env": {
+      "SETUPTOOLS_USE_DISTUTILS": "stdlib",
+      "PYTHONPATH": "/var/task"
     }
   },
-  "env": {
-    "PYTHONPATH": "/var/task"
-  },
-  "outputDirectory": ".next",
-  "installCommand": "pip install -r requirements.txt && npm install",
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "framework": "nextjs",
   "regions": ["hnd1"]
 }
