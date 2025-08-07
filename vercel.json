@@ -4,9 +4,10 @@
   "builds": [
     {
       "src": "api/**/*.py",
-      "use": "@vercel/python",
+      "use": "@vercel/python@3.0.0",
       "config": {
-        "runtime": "python3.9"
+        "runtime": "python3.9",
+        "maxLambdaSize": "50mb"
       }
     },
     {
@@ -24,9 +25,9 @@
       "dest": "/$1"
     }
   ],
-  "build": {
-    "env": {
-      "PYTHONPATH": "/var/task"
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.9"
     }
   },
   "regions": ["hnd1"]
