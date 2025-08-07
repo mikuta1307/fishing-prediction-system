@@ -11,7 +11,7 @@
     },
     {
       "src": "package.json",
-      "use": "@vercel/next@2.0.0"
+      "use": "@vercel/next"
     }
   ],
   "routes": [
