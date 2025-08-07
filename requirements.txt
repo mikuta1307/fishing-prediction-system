@@ -2,9 +2,9 @@
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 
-# Data Processing - Python 3.9 compatible versions
-pandas==1.5.3
-numpy==1.24.3
+# Data Processing - Python 3.9 compatible versions (slightly older for stability)
+pandas==1.4.4
+numpy==1.21.6
 
 # Google Sheets API
 gspread==5.10.0
@@ -12,8 +12,8 @@ google-auth==2.22.0
 google-auth-oauthlib==1.0.0
 google-auth-httplib2==0.1.0
 
-# Machine Learning - Python 3.9 compatible versions  
-scikit-learn==1.3.0
+# Machine Learning - Python 3.9 compatible versions
+scikit-learn==1.2.2
 joblib==1.3.2
 
 # Development & Logging
