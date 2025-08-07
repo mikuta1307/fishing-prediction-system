@@ -4,7 +4,7 @@
   "builds": [
     {
       "src": "api/**/*.py",
-      "use": "@vercel/python@4.2.0",
+      "use": "@vercel/python",
       "config": {
         "runtime": "python3.11"
       }
