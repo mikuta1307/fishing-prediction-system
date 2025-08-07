@@ -4,14 +4,14 @@
   "builds": [
     {
       "src": "api/**/*.py",
-      "use": "@vercel/python@3.0.7",
+      "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "50mb"
       }
     },
     {
       "src": "package.json",
-      "use": "@vercel/next@3.8.7"
+      "use": "@vercel/next"
     }
   ],
   "routes": [
