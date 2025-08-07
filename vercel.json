@@ -6,7 +6,7 @@
       "src": "api/**/*.py",
       "use": "@vercel/python",
       "config": {
-        "runtime": "python3.11"
+        "runtime": "python3.9"
       }
     },
     {
@@ -26,7 +26,6 @@
   ],
   "build": {
     "env": {
-      "SETUPTOOLS_USE_DISTUTILS": "stdlib",
       "PYTHONPATH": "/var/task"
     }
   },
