@@ -91,8 +91,17 @@ async def startup_event():
     else:
         print("  ❌ modelsディレクトリが存在しません")
     
+    # 🔧 Phase 13修正: Renderでのモデルパス修正
     print("🔍 glob検索結果:")
-    model_files = glob.glob("models/aji_random_forest_*.pkl")
+    # Renderでは 'cd api' で実行されるため、親ディレクトリを参照
+    model_files = glob.glob("../models/aji_random_forest_*.pkl")
+    if not model_files:
+        # ローカル環境用のパスも試行
+        model_files = glob.glob("models/aji_random_forest_*.pkl")
+        print("  📁 ローカルパスでファイル発見")
+    else:
+        print("  📁 ../models/ パスでファイル発見")
+    
     print(f"  検索結果: {model_files}")
     
     try:
