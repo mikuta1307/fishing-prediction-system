@@ -1,0 +1,15 @@
+# Python関連ファイル（Vercelデプロイ時に無視）
+requirements.txt
+api/
+ml/
+models/
+scripts/
+credentials/
+
+# Python実行ファイル
+*.py
+
+# その他のバックエンド関連
+__pycache__/
+*.pyc
+.env
