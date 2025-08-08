@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import { getApiStatus } from '../lib/api' // 🔧 Phase 12追加
 
 export default function Home() {
   const [systemStatus, setSystemStatus] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // システム状態を取得
-    fetch('http://localhost:8000/api/status')
-      .then(res => res.json())
-      .then(data => {
+    // 🌐 Phase 12修正: lib/api.jsのgetApiStatus関数を使用
+    const checkSystemStatus = async () => {
+      try {
+        const data = await getApiStatus()
         setSystemStatus(data)
-        setLoading(false)
-      })
-      .catch(err => {
+      } catch (err) {
         console.error('システム状態取得エラー:', err)
+      } finally {
         setLoading(false)
-      })
+      }
+    }
+
+    checkSystemStatus()
   }, [])
 
   return (
@@ -182,7 +185,8 @@ export default function Home() {
         <footer className="text-center mt-12 text-gray-500">
           <p>© 2025 本牧海釣り施設アジ釣果予測システム v1.0.0</p>
           <p className="text-sm mt-2">
-            <a href="http://localhost:8000/docs" target="_blank" className="hover:text-blue-600 transition-colors">
+            {/* 🌐 Phase 12修正: 環境対応API仕様書URL */}
+            <a href={process.env.NODE_ENV === 'production' ? 'https://fishing-prediction-system.onrender.com/docs' : 'http://localhost:8000/docs'} target="_blank" className="hover:text-blue-600 transition-colors">
               API仕様書
             </a>
           </p>
