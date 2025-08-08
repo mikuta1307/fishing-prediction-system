@@ -13,6 +13,7 @@ from typing import Dict, Any, Optional
 import gspread
 from google.oauth2.service_account import Credentials
 import os
+import json
 
 # ログ設定
 logging.basicConfig(level=logging.INFO)
@@ -21,14 +22,10 @@ logger = logging.getLogger(__name__)
 class VisitorAnalyzer:
     """来場者数動的分析クラス"""
     
-    def __init__(self, credentials_path: str = "credentials/choka-389510-1103575d64ab.json"):
+    def __init__(self):
         """
-        分析器初期化
-        
-        Args:
-            credentials_path: Google認証情報ファイルパス
+        分析器初期化（環境変数認証版）
         """
-        self.credentials_path = credentials_path
         self.gc = None
         self.sheet = None
         
@@ -72,28 +69,44 @@ class VisitorAnalyzer:
         self._initialize_sheets()
     
     def _initialize_sheets(self):
-        """Google Sheets初期化"""
+        """Google Sheets初期化（ハイブリッド認証版）"""
         try:
-            # 認証情報設定（historical.pyと同じ設定）
+            # 認証情報設定
             scopes = [
                 'https://spreadsheets.google.com/feeds',
                 'https://www.googleapis.com/auth/drive'
             ]
             
-            # 相対パスで認証ファイルを指定（統合環境対応）
-            credentials_path = self.credentials_path
+            # 1. まず環境変数を試す（Render対応）
+            credentials_json = os.environ.get('GOOGLE_CREDENTIALS_JSON')
             
-            if not os.path.exists(credentials_path):
-                raise FileNotFoundError(f"認証ファイルが見つかりません: {credentials_path}")
+            if credentials_json:
+                # 環境変数からの認証（Render環境）
+                try:
+                    credentials_dict = json.loads(credentials_json)
+                    creds = Credentials.from_service_account_info(credentials_dict, scopes=scopes)
+                    self.gc = gspread.authorize(creds)
+                    logger.info("Google Sheets接続成功（環境変数認証）")
+                except Exception as env_error:
+                    logger.warning(f"環境変数認証でエラー: {env_error}")
+                    self.gc = None
             
-            creds = Credentials.from_service_account_file(credentials_path, scopes=scopes)
-            self.gc = gspread.authorize(creds)
+            # 2. 環境変数が失敗した場合、ファイルパス認証（ローカル環境）
+            if not self.gc:
+                credentials_path = "credentials/choka-389510-1103575d64ab.json"
+                if os.path.exists(credentials_path):
+                    creds = Credentials.from_service_account_file(credentials_path, scopes=scopes)
+                    self.gc = gspread.authorize(creds)
+                    logger.info("Google Sheets接続成功（ファイル認証）")
+                else:
+                    logger.error("認証ファイルも環境変数も利用できません")
+                    self.gc = None
+                    self.sheet = None
+                    return
             
             # スプレッドシート接続（historical.pyと同じ名前を使用）
             spreadsheet = self.gc.open("本牧海釣り施設データ")
             self.sheet = spreadsheet.worksheet("釣果データ")
-            
-            logger.info("Google Sheets接続成功")
             
         except Exception as e:
             logger.error(f"Google Sheets初期化エラー: {e}")
@@ -382,7 +395,7 @@ class VisitorAnalyzer:
     
     def _get_fallback_averages(self) -> Dict[str, Any]:
         """
-        エラー時のフォールバック平均値を削除
+        エラー時のフォールバック平均値
         （APIエラー時は空のデータで対応）
         
         Returns:

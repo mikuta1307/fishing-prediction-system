@@ -11,6 +11,7 @@ from google.oauth2.service_account import Credentials
 from datetime import datetime, timedelta
 from typing import Optional, Dict, List, Any
 import os
+import json
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,19 +24,32 @@ SCOPES = [
 ]
 
 def get_google_sheets_client():
-    """Google Sheets クライアントを取得"""
+    """Google Sheets クライアントを取得（ハイブリッド認証）"""
     try:
-        # 認証ファイルのパス（相対パスで統合環境対応）
+        # 1. まず環境変数を試す（Render対応）
+        credentials_json = os.environ.get('GOOGLE_CREDENTIALS_JSON')
+        
+        if credentials_json:
+            # 環境変数からの認証（Render環境）
+            try:
+                credentials_dict = json.loads(credentials_json)
+                credentials = Credentials.from_service_account_info(credentials_dict, scopes=SCOPES)
+                client = gspread.authorize(credentials)
+                logger.info("Google Sheets client initialized successfully (環境変数認証)")
+                return client
+            except Exception as env_error:
+                logger.warning(f"環境変数認証でエラー: {env_error}")
+        
+        # 2. ファイルパス認証（ローカル環境）
         credentials_path = "credentials/choka-389510-1103575d64ab.json"
+        if os.path.exists(credentials_path):
+            credentials = Credentials.from_service_account_file(credentials_path, scopes=SCOPES)
+            client = gspread.authorize(credentials)
+            logger.info("Google Sheets client initialized successfully (ファイル認証)")
+            return client
         
-        if not os.path.exists(credentials_path):
-            raise FileNotFoundError(f"認証ファイルが見つかりません: {credentials_path}")
-        
-        credentials = Credentials.from_service_account_file(credentials_path, scopes=SCOPES)
-        client = gspread.authorize(credentials)
-        
-        logger.info("Google Sheets client initialized successfully")
-        return client
+        # 3. どちらも失敗した場合
+        raise FileNotFoundError("認証ファイルも環境変数も利用できません")
         
     except Exception as e:
         logger.error(f"Google Sheets client initialization failed: {str(e)}")
