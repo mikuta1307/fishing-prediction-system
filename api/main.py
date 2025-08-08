@@ -76,6 +76,25 @@ async def startup_event():
     
     print("🚀 FastAPI サーバー起動中...")
     
+    # 🔍 DEBUG: ファイル構成確認を追加
+    print("📁 現在の作業ディレクトリ:", os.getcwd())
+    print("📁 ルートディレクトリの内容:")
+    for item in os.listdir("."):
+        print(f"  - {item}")
+    
+    print("📁 modelsディレクトリの確認:")
+    if os.path.exists("models"):
+        print("  ✅ modelsディレクトリ存在")
+        print("  📋 modelsディレクトリの内容:")
+        for item in os.listdir("models"):
+            print(f"    - {item}")
+    else:
+        print("  ❌ modelsディレクトリが存在しません")
+    
+    print("🔍 glob検索結果:")
+    model_files = glob.glob("models/aji_random_forest_*.pkl")
+    print(f"  検索結果: {model_files}")
+    
     try:
         # 来場者数分析器初期化
         print("👥 来場者数分析器初期化中...")
@@ -87,7 +106,6 @@ async def startup_event():
         aji_predictor = AjiPredictor()
         
         # 最新モデルファイルを自動読み込み
-        model_files = glob.glob("models/aji_random_forest_*.pkl")
         if model_files:
             # 最新のファイルを取得（ファイル名の日時部分でソート）
             latest_model = sorted(model_files, reverse=True)[0]
