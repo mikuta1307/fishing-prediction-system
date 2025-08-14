@@ -44,3 +44,6 @@ fishing_results_*.csv
 # Temporary files
 result.txt
 setup_instructions.md
+
+# Development handover files
+chat_handover.md
