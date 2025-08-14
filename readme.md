@@ -1,14 +1,14 @@
-# 🎣 本牧海釣り施設 釣果予測システム
+# 🎣 海釣り施設 釣果予測システム
 
 機械学習を活用した釣果予測ポートフォリオプロジェクト
 
 ## 📋 プロジェクト概要
 
-本牧海釣り施設のWebサイトから釣果データをスクレイピングし、Google Sheetsに蓄積して機械学習による釣果予測を行うシステムです。**Python API サーバー (Render) + Next.js フロントエンド (Vercel)**の完全分離アーキテクチャで構築された本格的なWebアプリケーションです。
+海釣り施設のWebサイトから釣果データをスクレイピングし、Google Sheetsに蓄積して機械学習による釣果予測を行うシステムです。**Python API サーバー (Render) + Next.js フロントエンド (Vercel)**の完全分離アーキテクチャで構築された本格的なWebアプリケーションです。
 
-**🌐 対象サイト**: [本牧海釣り施設 釣果履歴](https://yokohama-fishingpiers.jp/honmoku/fishing-history)
+**🌐 対象サイト**: [海釣り施設 釣果履歴](https://yokohama-fishingpiers.jp/honmoku/fishing-history)
 
-**📊 データ保存先**: [Google Spreadsheet - 本牧海釣り施設データ](https://docs.google.com/spreadsheets/d/15zvHHNE3C1ZEBINftSlM-Mf7Nb-e9VuAVq6a9R2We0E)
+**📊 データ保存先**: [Google Spreadsheet - 海釣り施設データ](https://docs.google.com/spreadsheets/d/15zvHHNE3C1ZEBINftSlM-Mf7Nb-e9VuAVq6a9R2We0E)
 
 **🚀 本番アプリ**: https://fishing-prediction-system.vercel.app
 
@@ -225,4 +225,4 @@ NEXT_PUBLIC_API_URL="https://fishing-prediction-system.onrender.com"
 
 **🎣 完成した成果物**: フルスタック機械学習Webアプリケーション（本番稼働中）
 
-開発者: 本牧海釣り施設アジ釣果予測システム開発チーム
+開発者: 海釣り施設アジ釣果予測システム開発チーム

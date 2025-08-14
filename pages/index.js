@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
       <Head>
-        <title>本牧海釣り施設 アジ釣果予測システム</title>
+        <title>海釣り施設 アジ釣果予測システム</title>
         <meta name="description" content="機械学習による釣果予測と過去データ分析システム" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -35,7 +35,7 @@ export default function Home() {
         {/* ヘッダー */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-blue-800 mb-4">
-            🎣 本牧海釣り施設
+            🎣 海釣り施設
           </h1>
           <h2 className="text-3xl font-semibold text-blue-600 mb-2">
             アジ釣果予測システム
@@ -183,7 +183,7 @@ export default function Home() {
 
         {/* フッター */}
         <footer className="text-center mt-12 text-gray-500">
-          <p>© 2025 本牧海釣り施設アジ釣果予測システム v1.0.0</p>
+          <p>© 2025 海釣り施設アジ釣果予測システム v1.0.0</p>
           <p className="text-sm mt-2">
             {/* 🌐 Phase 12修正: 環境対応API仕様書URL */}
             <a href={process.env.NODE_ENV === 'production' ? 'https://fishing-prediction-system.onrender.com/docs' : 'http://localhost:8000/docs'} target="_blank" className="hover:text-blue-600 transition-colors">

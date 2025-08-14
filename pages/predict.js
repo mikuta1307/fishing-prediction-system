@@ -346,7 +346,7 @@ export default function PredictPage() {
           </div>
 
           <h1 className="text-3xl font-bold text-gray-900 mb-2">🎣 アジ釣果予測システム</h1>
-          <p className="text-gray-600">本牧海釣り施設のアジ釣果を機械学習で予測します</p>
+          <p className="text-gray-600">海釣り施設のアジ釣果を機械学習で予測します</p>
           
           {/* API状態表示 */}
           {apiStatus && (
@@ -730,7 +730,7 @@ export default function PredictPage() {
         {/* フッター */}
         <div className="text-center mt-12 pt-8 border-t border-gray-200">
           <p className="text-gray-500">
-            🎣 本牧海釣り施設 釣果予測システム | 
+            🎣 海釣り施設 釣果予測システム | 
             <a href="/historical" className="text-blue-600 hover:underline ml-1">過去データ閲覧</a>
           </p>
         </div>

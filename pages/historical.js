@@ -70,8 +70,8 @@ export default function Historical() {
   return (
     <>
       <Head>
-        <title>過去データ閲覧 - 本牧海釣り施設釣果予測システム</title>
-        <meta name="description" content="本牧海釣り施設の過去釣果データを閲覧・分析" />
+        <title>過去データ閲覧 - 海釣り施設釣果予測システム</title>
+        <meta name="description" content="海釣り施設の過去釣果データを閲覧・分析" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50">
@@ -91,7 +91,7 @@ export default function Historical() {
                 </Link>
                 <div>
                   <h1 className="text-3xl font-bold text-gray-900">🎣 過去データ閲覧</h1>
-                  <p className="text-gray-600 mt-1">本牧海釣り施設の釣果データ分析</p>
+                  <p className="text-gray-600 mt-1">海釣り施設の釣果データ分析</p>
                 </div>
               </div>
               <div className="text-right">
@@ -341,7 +341,7 @@ export default function Historical() {
           {/* フッターナビゲーション */}
           <div className="text-center mt-12 pt-8 border-t border-gray-200">
             <p className="text-gray-500 mb-4">
-              🎣 本牧海釣り施設 釣果予測システム
+              🎣 海釣り施設 釣果予測システム
             </p>
             <div className="flex justify-center space-x-4">
               <Link href="/" className="text-blue-600 hover:underline">
